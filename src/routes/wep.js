@@ -13,12 +13,11 @@ const handleHelloWord = (req, res) => {
 const initWebRouter = (app) => {
     //path , handler
     router.get("/", homeController.handleHelloWord);
-
     router.get("/user", homeController.handleUserPage);
+    router.post("/user/create-user", homeController.handleCreateNewUser);
+    router.post("/delte-user/:id", homeController.handleDelteUser);
 
-    router.post("/user/create-user", homeController.handleCreateNewUser)
-
-    return app.use("", router);
+    return app.use("", router); 
 }
 
 export default initWebRouter;
