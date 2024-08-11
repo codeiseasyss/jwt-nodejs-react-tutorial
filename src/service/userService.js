@@ -26,7 +26,7 @@ const createNewUser =  async(email, password, username) =>
 
     try {
         const [rows, fields] = 
-            await connection.execute ( 'INSERT INTO users (email, password, username) VALUES (?, ?, ?)',  
+            await connection.execute ( 'INSERT INTO user (email, password, username) VALUES (?, ?, ?)',  
                 [email, hashPass, username] );
     }
     catch(errol) {
@@ -48,7 +48,7 @@ const connection = await mysql.createConnection({
     Promise: bluebird,
   });
     try{ 
-        const [rows, fields] = await connection.execute ( ' select * from users' );
+        const [rows, fields] = await connection.execute ( ' select * from user' );
         return rows;
     } 
     catch(errol) {
@@ -66,7 +66,7 @@ const deleteUser = async (id) =>
         Promise: bluebird,
       });
         try{ 
-            const [rows, fields] = await connection.execute ( 'DELETE FROM users WHERE id = ?', [id]);
+            const [rows, fields] = await connection.execute ( 'DELETE FROM user WHERE id = ?', [id]);
             return rows;
         } 
         catch(errol) {
@@ -84,7 +84,7 @@ const getUserById = async (id) =>
         Promise: bluebird,
       });
         try{ 
-            const [rows, fields] = await connection.execute ( 'select * FROM users WHERE id = ?', [id]);
+            const [rows, fields] = await connection.execute ( 'select * FROM user WHERE id = ?', [id]);
             return rows;
         } 
         catch(errol) {
@@ -101,7 +101,7 @@ const updateUserInfor = async (email, username, id) =>
         Promise: bluebird,
       });
         try{ 
-            const [rows, fields] = await connection.execute ( 'UPDATE users SET email = ?, username = ? WHERE id = ?', [email, username, id]);
+            const [rows, fields] = await connection.execute ( 'UPDATE user SET email = ?, username = ? WHERE id = ?', [email, username, id]);
             return rows;
         } 
         catch(errol) {
