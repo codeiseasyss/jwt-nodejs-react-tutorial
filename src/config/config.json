@@ -8,8 +8,7 @@
     "define":
     {
       "freezeTabName": true
-    },
-    "logging": false
+    }
   },
   "test": {
     "username": "root",
