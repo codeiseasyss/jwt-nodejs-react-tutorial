@@ -3,6 +3,7 @@ import mysql from 'mysql2/promise';
 import bluebird from 'bluebird';
 import db from '../models/index';
 import { where } from 'sequelize';
+import { raw } from 'body-parser';
 
 
 const salt = bcrypt.genSaltSync(10);
@@ -34,6 +35,34 @@ const createNewUser =  async(email, password, username) =>
 
 const getUserList = async () =>
 {
+    //test reletionships
+    let newUser = await  db.User.findOne({
+        where: {id: 1 },
+        attributes: ["id", "username", "email"],
+        include: {model: db.Group,  attributes: ["name", "description"],},
+        raw: true,
+        nest: true
+     })
+
+    // let roles = await db.Group.findOne({
+    //     where: {id: 1 },
+    //     include: { model: db.Role},
+    //     raw: true,
+    //     nest: true
+    // })
+
+    let r = await db.Role.findAll({
+        include: {model: db.Group, where: { id: 1}},
+        raw: true,
+        nest: true
+    })
+    
+    console.log(">>>>>> check new user:  ", newUser)
+    console.log(">>>>>> check new role:  ", r)
+
+
+
+
     let users = [];
     users = await db.User.findAll();
     return users;
